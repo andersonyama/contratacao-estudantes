@@ -11,7 +11,7 @@ dados = carregador.carregar_dados(url_dados, atributos_modelo)
 X = dados[atributos_modelo[:-1]]
 Y = dados[atributos_modelo[-1]]
 
-def test_modelo():
+def teste_modelo():
     path_modelo = "modelagem/modelo_contratacao_estudantes.pkl"
     modelo_teste = modelo.carrega_modelo(path_modelo)
     acuracia = avaliador.avaliar_modelo(modelo_teste, X, Y)
