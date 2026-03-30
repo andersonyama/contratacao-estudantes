@@ -26,13 +26,13 @@ def home():
         '200': EstudanteViewSchema
     }
 )
-def previsor_contratacao(form: EstudanteSchema):
+def previsor_contratacao(body: EstudanteSchema):
     estudante = Estudante( 
-        form.rank_universidade,
-        form.cgpa,
-        form.dsa_score,
-        form.coding_skills,
-        form.internships
+        body.rank_universidade,
+        body.cgpa,
+        body.dsa_score,
+        body.coding_skills,
+        body.internships
     )
 
     modelo = Modelo()

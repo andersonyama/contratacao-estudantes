@@ -35,7 +35,7 @@
                     <label for="internships">Quantidade Estágios</label>
                     <input type="number" id="internships" name="quant_estagios" required min="0" max="3">
 
-                    <button type="submit">Avaliar</button>
+                    <button onclick="estimarContratacao()" type="button">Avaliar</button>
                 </form>
             </section>
         </main>
@@ -43,5 +43,10 @@
         <footer>
             <p>Desenvolvido por Anderson Hideki Yamamura</p>
         </footer>
+
+        <script>
+            window.HOST_API = "http://127.0.0.1:5000/";
+        </script>
+        <script src="script.js"></script>
     </body>
 </html>
