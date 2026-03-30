@@ -1,0 +1,3 @@
+from model.pipeline import Pipeline
+from model.modelo import Modelo
+from model.estudante import Estudante
