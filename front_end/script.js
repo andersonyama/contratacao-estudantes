@@ -1,11 +1,12 @@
 const host_api = window.HOST_API || "http://127.0.0.1:5000/";
 
-async function postEstudante(rank_universidade, cgpa, dsa_score, coding_skills, internships) {
+async function postEstudante(nome, rank_universidade, cgpa, dsa_score, coding_skills, internships) {
     let url = host_api + "estudante"
     const response = await fetch(url, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({rank_universidade: rank_universidade, 
+        body: JSON.stringify({nome: nome,
+                                rank_universidade: rank_universidade, 
                                 cgpa: cgpa, 
                                 dsa_score: dsa_score,
                                 coding_skills: coding_skills,
@@ -20,6 +21,7 @@ async function postEstudante(rank_universidade, cgpa, dsa_score, coding_skills, 
 }
 
 async function estimarContratacao() {
+    let nome = document.getElementById("nome").value;
     let rank_universidade = document.getElementById("rank_universidade").value;
     let cgpa = document.getElementById("cgpa").value;
     let dsa_score = document.getElementById("dsa_score").value;
@@ -27,8 +29,8 @@ async function estimarContratacao() {
     let internships = document.getElementById("internships").value;
     
     
-    if (rank_universidade && cgpa && dsa_score && coding_skills && internships){
-        const predicao = await postEstudante(rank_universidade, cgpa, dsa_score, coding_skills, internships);
+    if (nome && rank_universidade && cgpa && dsa_score && coding_skills && internships){
+        const predicao = await postEstudante(nome, rank_universidade, cgpa, dsa_score, coding_skills, internships);
         if (predicao) {
             if (predicao.resultado == 1){
                 alert("Predição: Aluno será contratado!")

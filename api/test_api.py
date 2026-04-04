@@ -1,6 +1,8 @@
 import pytest
 import json
 from app import app
+from db import Session
+from model import Estudante
 
 # para executar o teste: pytest -v test_api.py
 
@@ -15,6 +17,7 @@ def client():
 def estudante_teste():
     """Dados de estudante exemplo para teste"""
     return {
+        'nome':'TESTE',
         'rank_universidade': 2,
         'cgpa': 8,
         'dsa_score': 8,
@@ -45,3 +48,20 @@ def teste_predicao_estudante(client, estudante_teste):
 
     assert 'resultado' in data
     assert data['resultado'] in [0,1]
+
+def cleanup_testes():
+    """Limpa registros de teste do banco"""
+    session = Session()
+    registros_teste = session.query(Estudante).filter(
+        Estudante.nome.in_(['TESTE'])
+    ).all()
+    
+    for registro in registros_teste:
+        session.delete(registro)
+    session.commit()
+    session.close()
+
+# Executa limpeza após os testes
+def test_cleanup():
+    """Limpa dados de teste"""
+    cleanup_testes()

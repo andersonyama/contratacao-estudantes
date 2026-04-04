@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from model.estudante import Estudante
 
 class EstudanteSchema(BaseModel):
+    nome: str
     rank_universidade: int
     cgpa: float
     dsa_score: float
@@ -9,6 +10,8 @@ class EstudanteSchema(BaseModel):
     internships: int
 
 class EstudanteViewSchema(BaseModel):
+    id: int
+    nome: str
     rank_universidade: int
     cgpa: float
     dsa_score: float
@@ -18,6 +21,8 @@ class EstudanteViewSchema(BaseModel):
 
 def apresenta_predicao(estudante: Estudante, predicao: int):
     return {
+        'id': estudante.id,
+        'nome': estudante.nome,
         'rank_universidade': estudante.rank_universidade,
         'cgpa': estudante.cgpa,
         'dsa_score': estudante.dsa_score,

@@ -1,0 +1,1 @@
+from repositories.estudante_repository import insert_estudante

@@ -4,6 +4,10 @@ from flask_cors import CORS
 
 from schemas import *
 from model import *
+from repositories import *
+from db.session import init_db
+
+init_db()
 
 info = Info(title="Contratação Estudantes", version="1.0.0")
 app = OpenAPI(
@@ -34,7 +38,8 @@ def docs():
     }
 )
 def previsor_contratacao(body: EstudanteSchema):
-    estudante = Estudante( 
+    estudante = Estudante(
+        body.nome,
         body.rank_universidade,
         body.cgpa,
         body.dsa_score,
@@ -44,8 +49,10 @@ def previsor_contratacao(body: EstudanteSchema):
 
     modelo = Modelo()
 
-    path_modelo = "../modelagem/modelo_contratacao_estudantes.pkl"
+    path_modelo = "modelagem/modelo_contratacao_estudantes.pkl"
     modelo.carrega_modelo(path_modelo)
-    predicao = modelo.preditor(estudante.vetor_atributos())[0]
-    resposta = apresenta_predicao(estudante, int(predicao))
+    estudante.predicao = int(modelo.preditor(estudante.vetor_atributos())[0])
+    insert_estudante(estudante)
+    resposta = apresenta_predicao(estudante, estudante.predicao)
+
     return resposta
