@@ -8,15 +8,22 @@ from model import *
 info = Info(title="Contratação Estudantes", version="1.0.0")
 app = OpenAPI(
     __name__,
-    info=info
+    info=info,
+    static_folder='../front_end'
 )
 CORS(app)
 
 home_tag = Tag(name='Documentação', description='Página inicial da documentação')
 estudante_tag = Tag(name='Estudante', description='Predição de contratação de formandos')
 
+# rota home encaminha para o front-end
 @app.get('/')
 def home():
+    return redirect('front_end/index.html')
+
+# rota docs encaminha para documentação no swagger
+@app.get('/docs', tags=[home_tag])
+def docs():
     return redirect('/openapi/swagger')
 
 @app.post(
@@ -37,8 +44,8 @@ def previsor_contratacao(body: EstudanteSchema):
 
     modelo = Modelo()
 
-    model_path = "modelagem/modelo_contratacao_estudantes.pkl"
-    modelo.carrega_modelo(model_path)
+    path_modelo = "../modelagem/modelo_contratacao_estudantes.pkl"
+    modelo.carrega_modelo(path_modelo)
     predicao = modelo.preditor(estudante.vetor_atributos())[0]
     resposta = apresenta_predicao(estudante, int(predicao))
     return resposta
