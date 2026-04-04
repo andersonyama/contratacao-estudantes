@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from model.estudante import Estudante
 
-class EstudanteSchema(BaseModel):
+class EstudanteRequest(BaseModel):
     nome: str
     rank_universidade: int
     cgpa: float
@@ -9,7 +9,7 @@ class EstudanteSchema(BaseModel):
     coding_skills: float
     internships: int
 
-class EstudanteViewSchema(BaseModel):
+class EstudanteResponse(BaseModel):
     id: int
     nome: str
     rank_universidade: int
@@ -19,7 +19,10 @@ class EstudanteViewSchema(BaseModel):
     internships: int
     resultado: int = None
 
-def apresenta_predicao(estudante: Estudante, predicao: int):
+class EstudanteListResponse(BaseModel):
+    estudantes: list[EstudanteResponse]
+
+def apresenta_predicao(estudante: Estudante):
     return {
         'id': estudante.id,
         'nome': estudante.nome,
@@ -28,5 +31,10 @@ def apresenta_predicao(estudante: Estudante, predicao: int):
         'dsa_score': estudante.dsa_score,
         'coding_skills': estudante.coding_skills,
         'internships': estudante.internships,
-        'resultado': predicao
+        'resultado': estudante.predicao
+    }
+
+def apresenta_lista_predicao(estudantes: list[Estudante]):
+    return {
+        'estudantes': [apresenta_predicao(estudante) for estudante in estudantes]
     }

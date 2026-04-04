@@ -1,1 +1,2 @@
-from schemas.estudante_schema import EstudanteSchema, EstudanteViewSchema, apresenta_predicao
+from schemas.estudante_schema import EstudanteRequest, EstudanteResponse, EstudanteListResponse, \
+                                        apresenta_predicao, apresenta_lista_predicao

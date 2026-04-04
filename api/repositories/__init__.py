@@ -1,1 +1,1 @@
-from repositories.estudante_repository import insert_estudante
+from repositories.estudante_repository import insert_estudante, get_all_estudantes

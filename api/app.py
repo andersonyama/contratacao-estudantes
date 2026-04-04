@@ -34,10 +34,10 @@ def docs():
     '/estudante',
     tags=[estudante_tag],
     responses={
-        '200': EstudanteViewSchema
+        '200': EstudanteResponse
     }
 )
-def previsor_contratacao(body: EstudanteSchema):
+def previsor_contratacao(body: EstudanteRequest):
     estudante = Estudante(
         body.nome,
         body.rank_universidade,
@@ -53,6 +53,18 @@ def previsor_contratacao(body: EstudanteSchema):
     modelo.carrega_modelo(path_modelo)
     estudante.predicao = int(modelo.preditor(estudante.vetor_atributos())[0])
     insert_estudante(estudante)
-    resposta = apresenta_predicao(estudante, estudante.predicao)
+    
+    return apresenta_predicao(estudante), 200
 
-    return resposta
+@app.get('/estudante',
+    tags=[estudante_tag],
+    responses={
+        '200': EstudanteListResponse
+    }
+)
+def lista_resultados():
+    try:
+        estudantes = get_all_estudantes()
+        return apresenta_lista_predicao(estudantes), 200
+    except Exception as e:
+        return {'message': 'Erro ao listar os ativos.'}, 400
