@@ -49,6 +49,14 @@ def teste_predicao_estudante(client, estudante_teste):
     assert 'resultado' in data
     assert data['resultado'] in [0,1]
 
+def teste_consulta_lista_estudante(client):
+    """Testa se a consulta de estudantes resulta em uma lista"""
+    response = client.get('/estudante')
+    assert response.status_code == 200
+    data = json.loads(response.data)
+    assert 'estudantes' in data
+    assert isinstance(data['estudantes'], list)
+
 def cleanup_testes():
     """Limpa registros de teste do banco"""
     session = Session()
@@ -62,6 +70,6 @@ def cleanup_testes():
     session.close()
 
 # Executa limpeza após os testes
-def test_cleanup():
+def teste_cleanup():
     """Limpa dados de teste"""
     cleanup_testes()
