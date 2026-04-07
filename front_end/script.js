@@ -33,9 +33,9 @@ async function getListaEstudantes() {
 async function estimarContratacao() {
     let nome = document.getElementById("nome").value;
     let rank_universidade = document.getElementById("rank_universidade").value;
-    let cgpa = document.getElementById("cgpa").value;
-    let dsa_score = document.getElementById("dsa_score").value;
-    let coding_skills = document.getElementById("coding_skills").value;
+    let cgpa = texto_para_decimal(document.getElementById("cgpa").value);
+    let dsa_score = texto_para_decimal(document.getElementById("dsa_score").value);
+    let coding_skills = texto_para_decimal(document.getElementById("coding_skills").value);
     let internships = document.getElementById("internships").value;
     
     
@@ -84,7 +84,13 @@ function incluirViewEstudante(nome, rank_universidade, cgpa, dsa_score, coding_s
         mensagem_predicao = "Sim";
     } else mensagem_predicao = "Não";
 
-    let estudante = [nome, rank_universidade, cgpa, dsa_score, coding_skills, internships, mensagem_predicao];
+    let estudante = [nome, 
+        rank_universidade, 
+        decimal_para_texto(cgpa), 
+        decimal_para_texto(dsa_score), 
+        decimal_para_texto(coding_skills), 
+        internships, 
+        mensagem_predicao];
 
     for (let i = 0; i < estudante.length; i++){
         let cell = row.insertCell(i);
@@ -119,3 +125,11 @@ function carrega_dados(){
 }
 
 carrega_dados()
+
+function texto_para_decimal(valor){
+    return Number(valor.replace(/\./g,'').replace(',','.'));
+}
+
+function decimal_para_texto(valor){
+    return valor.toLocaleString('pt-BR');
+}
