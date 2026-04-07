@@ -4,7 +4,7 @@ from app import app
 from db import Session
 from model import Estudante
 
-# para executar o teste: pytest -v test_api.py
+# para executar o teste: pytest -v api/test_api.py
 
 @pytest.fixture
 def client():

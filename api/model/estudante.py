@@ -35,6 +35,7 @@ class Estudante(Base):
             self.data_predicao = data_predicao
 
     def vetor_atributos(self):
+        '''Retorna vetor a ser utilizado no modelo de predição'''
         vetor = np.array([self.rank_universidade, self.cgpa, self.dsa_score, self.coding_skills, self.internships])
         vetor = vetor.reshape(1, -1)
         return vetor

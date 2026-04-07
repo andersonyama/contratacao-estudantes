@@ -1,6 +1,6 @@
 from model import *
 
-# para executar o teste: pytest -v test_modelo.py
+# para executar o teste: pytest -v api/test_modelo.py
 
 carregador = Carregador()
 modelo = Modelo()

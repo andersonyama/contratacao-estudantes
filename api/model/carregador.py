@@ -6,6 +6,12 @@ class Carregador:
         pass
 
     def carregar_dados(self, url_dados: str, atributos_modelo: list):
+        '''Carrega dados do arquivo disponível na url_informado, com tratamento inicial de dados, selecionando atributos informados
+
+        Arguments:
+        url_dados: caminho do arquivo de dados
+        atributos_modelo: lista de atributos a serem utilizados'''
+        
         labels = ['ramo', 'rank_universidade', 'cgpa', 'reprovacoes', 'coding_skills',
        'dsa_score', 'aptitude_score', 'communication_skills', 'ml_knowledge',
        'system_design', 'internships', 'projects_count', 'certifications',
