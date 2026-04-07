@@ -51,7 +51,7 @@ def previsor_contratacao(body: EstudanteRequest):
 
     path_modelo = "modelagem/modelo_contratacao_estudantes.pkl"
     modelo.carrega_modelo(path_modelo)
-    estudante.predicao = int(modelo.preditor(estudante.vetor_atributos())[0])
+    estudante.predicao = int(modelo.preditor(estudante.exporta_df())[0])
     insert_estudante(estudante)
     
     return apresenta_predicao(estudante), 200

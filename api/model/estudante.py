@@ -3,7 +3,7 @@ from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from typing import Union
 
-import numpy as np
+import pandas as pd
 
 from model import Base
 
@@ -34,8 +34,14 @@ class Estudante(Base):
         if data_predicao:
             self.data_predicao = data_predicao
 
-    def vetor_atributos(self):
-        '''Retorna vetor a ser utilizado no modelo de predição'''
-        vetor = np.array([self.rank_universidade, self.cgpa, self.dsa_score, self.coding_skills, self.internships])
-        vetor = vetor.reshape(1, -1)
-        return vetor
+    def exporta_df(self):
+        '''Retorna dataframe a ser utilizado no modelo de predição'''
+        dict_objeto = {
+            'rank_universidade': [self.rank_universidade],
+            'cgpa': [self.cgpa],
+            'coding_skills': [self.coding_skills],
+            'dsa_score': [self.dsa_score],
+            'internships': [self.internships]
+            }
+        
+        return pd.DataFrame.from_dict(dict_objeto)
